@@ -1,11 +1,18 @@
 "use client";
 
+import PostCard from "@/components/ui/post-card";
 import { useEffect, useState } from "react";
+
+export interface Post {
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
+}
 
 const PostsPage = () => {
 
-
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -29,7 +36,13 @@ const PostsPage = () => {
 
     if (loading) return <div>Loading...</div>;
     if (errorMessage) return <div>Error: {errorMessage}</div>;
-    return <div>{JSON.stringify(data)}</div>;
+    return (
+        <div className="flex flex-col items-center justify-center gap-y-4 max-w-screen-lg mx-auto my-16">
+            {data && data.map((post: Post) => (
+                <PostCard key={post.id} post={post} />
+            ))}
+        </div>
+    );
 }
 
 export default PostsPage;

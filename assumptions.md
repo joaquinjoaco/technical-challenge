@@ -4,13 +4,15 @@ This file outlines the assumptions made during the development of this technical
 
 ---
 
-- [ ] I assumed Next.js 15.5.0 was acceptable, as it is the current stable version at the time of development.
+- I assumed Next.js 15.5.0 was acceptable, as it is the current stable version at the time of development.
 
-- [ ] I assumed the App Router (app/) was acceptable instead of the legacy Pages Router.
+- I assumed the App Router (app/) was acceptable instead of the legacy Pages Router.
 
-- [ ] I assumed it was acceptable to expose the API URL via the NEXT_PUBLIC_API_BASE_URL environment variable.
+- I assumed it was acceptable to expose the API URL via the NEXT_PUBLIC_API_BASE_URL environment variable.
 
-- [ ] I assumed the evaluation team will access the deployed app via the Vercel domain (https://technical-challenge-joaquin.vercel.app/) or run a local dev instance:
+- I assumed it was acceptable not to use any UI component library or collection, such as MUI or ShadCN, since the UI requirements are quite simple.
+
+- I assumed the evaluation team will access the deployed app via the Vercel domain (https://technical-challenge-joaquin.vercel.app/) or run a local dev instance:
 
 ```bash
   npm install
