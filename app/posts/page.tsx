@@ -37,7 +37,7 @@ const PostsPage = () => {
     if (loading) return <div>Loading...</div>;
     if (errorMessage) return <div>Error: {errorMessage}</div>;
     return (
-        <div className="flex flex-col items-center justify-center gap-y-4 max-w-screen-lg mx-auto my-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-screen-lg mx-8 lg:mx-auto my-16">
             {data && data.map((post: Post) => (
                 <PostCard key={post.id} post={post} />
             ))}

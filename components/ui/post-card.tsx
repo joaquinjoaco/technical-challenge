@@ -7,12 +7,12 @@ const PostCard = ({ post }: { post: Post }) => {
         <Card className="w-full max-w-screen-sm rounded-bl-none rounded-tr-none rounded-tl-[3rem] rounded-br-[3rem]">
             <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-1.5">
-                    <Hash className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Post {post.id}</span>
-                </div>
-                <div className="flex items-center gap-1.5">
                     <User className="w-4 h-4 text-muted-foreground" />
                     <span className="text-sm text-muted-foreground">User {post.userId}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                    <Hash className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">Post {post.id}</span>
                 </div>
             </div>
 
