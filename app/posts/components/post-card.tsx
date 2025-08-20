@@ -1,5 +1,5 @@
 import { Post } from "@/app/posts/page";
-import Card from "./card";
+import Card from "../../../components/ui/card";
 import { FileText, Hash, User } from "lucide-react";
 
 const PostCard = ({ post }: { post: Post }) => {

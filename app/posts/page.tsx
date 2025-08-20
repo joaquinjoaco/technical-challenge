@@ -1,7 +1,9 @@
 "use client";
 
-import PostCard from "@/components/ui/post-card";
+import PostCard from "@/app/posts/components/post-card";
 import { useEffect, useState } from "react";
+import LoadingSkeleton from "./components/loading-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export interface Post {
     userId: number;
@@ -34,10 +36,10 @@ const PostsPage = () => {
         fetchPosts();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingSkeleton />;
     if (errorMessage) return <div>Error: {errorMessage}</div>;
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-screen-lg mx-8 lg:mx-auto my-16">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 max-w-screen-lg mx-auto px-8 lg:px-16 my-16">
             {data && data.map((post: Post) => (
                 <PostCard key={post.id} post={post} />
             ))}

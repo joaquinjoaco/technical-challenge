@@ -6,9 +6,9 @@ const Card = ({
     className?: string;
 }) => {
     return (
-        <div className={`bg-white border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 ${className}`}>
+        <div className={`bg-[#F5F5F5] border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 ${className}`}>
             {children}
-        </div >
+        </div>
     );
 };
 
