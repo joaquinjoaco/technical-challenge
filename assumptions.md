@@ -21,7 +21,7 @@ This file outlines the assumptions made during the development of this technical
 
 - Vercel automatically configures itself to deploy pull requests when a project is imported and connected to a Git repository. This feature is known as "Preview Deployments." We can access the preview either from Vercel or from GitHub in the pull request page in the Checks tab.
 
-However we can explicitly configure it at the project's root in a file named vercel.json:
+However [we can explicitly configure it](https://vercel.com/docs/project-configuration/git-configuration#git.deploymentenabled) at the project's root in a file named vercel.json:
 
 ```
 // vercel.json
@@ -34,3 +34,5 @@ However we can explicitly configure it at the project's root in a file named ver
   }
 }
 ```
+
+- SWR default behavior is to automatically [revalidate after regaining connection](https://swr.vercel.app/docs/revalidation#revalidate-on-reconnect) or [after an error](https://swr.vercel.app/docs/error-handling#error-retry), both of these can be disabled if needed, or overriden.
