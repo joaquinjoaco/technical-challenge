@@ -26,7 +26,7 @@ const PostsPage = () => {
             debouncedSearchTerm ? // if debounced search term is not empty
                 `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts?userId=${debouncedSearchTerm}` // fetch with debounced search term
                 : `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts` // fetch with no search term
-            : `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts`, // (UX improvement) fetch with empty search term, so that when going from a length > 0 to a length = 0 the request is immediate
+            : `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts`, // (UX improvement) fetch with no search term, so that when going from a length > 0 to a length = 0 the request is immediate
         fetcher);
 
     if (error) return (
@@ -69,7 +69,7 @@ const PostsPage = () => {
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 max-w-screen-lg mx-auto px-8 lg:px-16 my-16">
             <input
                 type="text"
-                placeholder="Search by user"
+                placeholder="Search by userId"
                 className="col-span-2 lg:col-span-3 px-6 p-4 rounded-full bg-tech-blue mb-4"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
