@@ -1,21 +1,16 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-export default function NotFound() {
+const NotFound = () => {
     return (
-        <div className="absolute bg-transparent w-full min-h-screen pattern-wavy pattern-blue-100 pattern-bg-white dark:pattern-accent-foreground pattern-size-6 pattern-opacity-100">
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="py-6 px-8 mx-4 max-w-[600px] rounded-2xl bg-destructive text-destructive-foreground">
-                    <p className="font-semibold text-lg">
-                        Ups!
-                    </p>
-                    <p>
-                        No se encontró lo que buscabas.
-                    </p>
-                    <div className="my-2">
-                        <Link className="underline" href="/">Volver al panel</Link>
-                    </div>
-                </div>
-            </div>
+        <div className="flex flex-col items-center justify-center w-screen h-screen">
+            <p className="font-bold mb-2">
+                Oops! Could not find what you were looking for...
+            </p>
+            <Link href="/" className="underline tracking-tighter" title="Go back to /">
+                Take me to &apos; / &apos;
+            </Link>
         </div>
     )
 }
+
+export default NotFound;
