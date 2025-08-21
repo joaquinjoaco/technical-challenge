@@ -20,14 +20,28 @@ const PostsPage = () => {
 
     const [searchTerm, setSearchTerm] = useState<string>("");
     const debouncedSearchTerm = useDebounce(searchTerm, 500); // 500ms debounce
+    const [isLoadingSlow, setIsLoadingSlow] = useState(false);
 
     const { data, error, isLoading } = useSWR<Post[]>(
         searchTerm.length > 0 ? // if search term is not empty
             debouncedSearchTerm ? // if debounced search term is not empty
                 `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts?userId=${debouncedSearchTerm}` // fetch with debounced search term
-                : `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts` // fetch with no search term
+                : `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts`// fetch with no search term
             : `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts`, // (UX improvement) fetch with no search term, so that when going from a length > 0 to a length = 0 the request is immediate
-        fetcher);
+        fetcher,
+        {
+            // Slow connection detection
+            loadingTimeout: 1000, // 1 second
+            onLoadingSlow: (key) => {
+                setIsLoadingSlow(true)
+            },
+            onSuccess: () => {
+                setIsLoadingSlow(false)
+            },
+            onError: () => {
+                setIsLoadingSlow(false)
+            }
+        });
 
     if (error) return (
         <div className="flex flex-col items-center justify-center w-screen h-screen">
@@ -44,7 +58,11 @@ const PostsPage = () => {
     );
 
     const renderGridContent = () => {
-        if (isLoading) {
+        if (isLoading && isLoadingSlow) {
+            return Array.from({ length: 10 }).map((_, index) => (
+                <Skeleton key={index} className="bg-red-400 h-[300px] max-w-screen-sm rounded-bl-none rounded-tr-none rounded-tl-[3rem] rounded-br-[3rem]" />
+            ));
+        } else if (isLoading && !isLoadingSlow) {
             return Array.from({ length: 10 }).map((_, index) => (
                 <Skeleton key={index} className="h-[300px] max-w-screen-sm rounded-bl-none rounded-tr-none rounded-tl-[3rem] rounded-br-[3rem]" />
             ));
@@ -74,6 +92,13 @@ const PostsPage = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
+            {isLoadingSlow && (
+                <div className="col-span-3 flex flex-col items-center justify-center">
+                    <p className="font-bold mb-2">
+                        Your connection is slow or unstable. Results may take longer than expected.
+                    </p>
+                </div>
+            )}
             {renderGridContent()}
         </div>
     );
