@@ -22,9 +22,11 @@ const PostsPage = () => {
     const debouncedSearchTerm = useDebounce(searchTerm, 500); // 500ms debounce
 
     const { data, error, isLoading } = useSWR<Post[]>(
-        debouncedSearchTerm ? // if there is a search term, use the debounced search term
-            `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts?userId=${debouncedSearchTerm}`
-            : `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts`,
+        searchTerm.length > 0 ? // if search term is not empty
+            debouncedSearchTerm ? // if debounced search term is not empty
+                `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts?userId=${debouncedSearchTerm}` // fetch with debounced search term
+                : `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts` // fetch with no search term
+            : `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts`, // (UX improvement) fetch with empty search term, so that when going from a length > 0 to a length = 0 the request is immediate
         fetcher);
 
     if (error) return (
