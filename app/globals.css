@@ -4,11 +4,13 @@
   --background: #EEEEEE;
   --foreground: #212121;
   --muted-foreground: oklch(0.708 0 0);
+  --tech-blue: #2F6CBD;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-tech-blue: var(--tech-blue);
   --color-muted-foreground: var(--muted-foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -18,6 +20,7 @@
   :root {
     --background: #212121;
     --foreground: #EEEEEE;
+    --tech-blue: #2F6CBD;
   }
 }
 

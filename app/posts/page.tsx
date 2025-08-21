@@ -19,12 +19,10 @@ const PostsPage = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [search, setSearch] = useState<string>("");
 
-
     // Get all posts on initial render and on search.
     // No debounce.
     useEffect(() => {
         const fetchPosts = async () => {
-            console.log("fetching posts on initial render");
             try {
                 setLoading(true);
                 const response = search ?
@@ -37,7 +35,7 @@ const PostsPage = () => {
                 const result = await response.json();
                 setData(result);
             } catch (err) {
-                setErrorMessage(err instanceof Error ? err.message : 'An error occurred');
+                setErrorMessage(err instanceof Error ? err.message : 'An unexpected error occurred');
             } finally {
                 setLoading(false);
             }
@@ -59,32 +57,38 @@ const PostsPage = () => {
         </div>
     );
 
+    const renderGridContent = () => {
+        if (loading) {
+            return Array.from({ length: 10 }).map((_, index) => (
+                <Skeleton key={index} className="h-[300px] max-w-screen-sm rounded-bl-none rounded-tr-none rounded-tl-[3rem] rounded-br-[3rem]" />
+            ));
+        }
+
+        if (data.length > 0) {
+            return data.map((post: Post) => (
+                <PostCard key={post.id} post={post} />
+            ));
+        }
+
+        return (
+            <div className="col-span-3 flex flex-col items-center justify-center">
+                <p className="font-bold mb-2">
+                    No posts have been found.
+                </p>
+            </div>
+        );
+    };
+
     return (
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 max-w-screen-lg mx-auto px-8 lg:px-16 my-16">
             <input
                 type="text"
                 placeholder="Search by user"
-                className="col-span-2 lg:col-span-3 px-6 p-4 rounded-full bg-[#2F6CBD]"
+                className="col-span-2 lg:col-span-3 px-6 p-4 rounded-full bg-tech-blue"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
-            {loading ? (
-                Array.from({ length: 10 }).map((_, index) => (
-                    <Skeleton key={index} className="h-[300px] max-w-screen-sm rounded-bl-none rounded-tr-none rounded-tl-[3rem] rounded-br-[3rem]" />
-                ))
-            ) : (
-                data.length > 0 ? (
-                    data.map((post: Post) => (
-                        <PostCard key={post.id} post={post} />
-                    ))
-                ) : (
-                    <div className="col-span-3 flex flex-col items-center justify-center">
-                        <p className="font-bold mb-2">
-                            No posts have been found.
-                        </p>
-                    </div>
-                )
-            )}
+            {renderGridContent()}
         </div>
     );
 }
