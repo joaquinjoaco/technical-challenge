@@ -18,3 +18,19 @@ This file outlines the assumptions made during the development of this technical
   npm install
   npm run dev
 ```
+
+- Vercel automatically configures itself to deploy pull requests when a project is imported and connected to a Git repository. This feature is known as "Preview Deployments." We can access the preview either from Vercel or from GitHub in the pull request page in the Checks tab.
+
+However we can explicitly configure it at the project's root in a file named vercel.json:
+
+```
+// vercel.json
+{
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "preview": true
+    }
+  }
+}
+```
